@@ -8,7 +8,8 @@ public class Fish : MonoBehaviour {
 	// Use this for initialization
 	
 	void Start () {
-	
+	//will call a function every "x" seconds. (function, how long at start before function launches, how long between each time function executes)
+	  InvokeRepeating ("SetNewDestination", 0f, 3f);
 	}
 	
 	// Update is called once per frame
@@ -24,9 +25,17 @@ public class Fish : MonoBehaviour {
 		//makes fish swim forward
 		Vector3 direction = Vector3.Normalize (destination - transform.position);
 		
-		//awkward zooming of fish	
+		//awkward zooming of fish to get to its destination	
 		//rigidbody.AddForce( destination - transform.position );
-		//rigidbody.AddForce(destination)
+		//rigidbody.AddForce(destination);
 		rigidbody.AddForce (direction *speed, ForceMode.VelocityChange);
 }
+	void SetNewDestination(){
+		//set a random destination
+		
+		//this generates random vector 3 numbers within a sphere with the radius = 1. 
+		//If we times it by 100, the sphere will now have r=100
+		destination = Random.insideUnitSphere *50f;
+	}
+		
 } 

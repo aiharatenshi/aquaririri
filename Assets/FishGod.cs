@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic; //NEED THIS LINE TO MAKE ARRAYS
 
 public class FishGod : MonoBehaviour {
 	public Fish fishBlueprint;
-	public int fishCount = 100;
+	public Fish fishBlueprint2;
+	public int fishCount = 50;
 	
+	//array
+	public List<Fish> fishList= new List<Fish>();
 	
 	// Use this for initialization
 	void Start () {
@@ -14,9 +18,23 @@ public class FishGod : MonoBehaviour {
 			Vector3 fishPosition = new Vector3(Random.Range (-10f,10f), Random.Range(-10f, 10f), Random.Range (-10f, 10f) );
 			
 			//will instantiate blueprint, at this position, with no rotation
-			Instantiate (fishBlueprint, fishPosition, Quaternion.identity);
+			// makes variables. Need to do "as Fish" to cast this OBJECT as a FISH. because instantiate = type Object
+			float random = Random.Range (0f, 10f);
+			if (random > 5f){
+			Fish newFish = Instantiate (fishBlueprint, fishPosition, Quaternion.identity) as Fish;
+			fishList.Add (newFish);
 			
-			//increment fishcounter
+			}
+			
+			else {
+				Fish newFish = Instantiate (fishBlueprint2, fishPosition, Quaternion.identity) as Fish;
+				fishList.Add (newFish);
+				
+			}
+			
+			//adds fish to a list! woot!
+			
+			
 			currentFishcounter ++;
 		}
 	
@@ -26,5 +44,12 @@ public class FishGod : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+		if (Input.GetKeyDown (KeyCode.Space) )
+			//for loop. EASIER IN C++ YAY!
+			
+			//inventing temporary variable = currentFish
+			foreach (Fish currentFish in fishList) {
+			currentFish.destination = Vector3.zero;
+		}
 	}
 }
